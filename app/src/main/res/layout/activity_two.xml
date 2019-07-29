@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/button_white_fillet_rectangle"
+    android:id="@+id/container"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请输入激活码"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="25dp"
+        android:textColor="#ff333333"
+        android:textSize="18sp"
+        android:drawableLeft="@drawable/icon_activation_code"
+        android:drawablePadding="5dp"
+        />
+    <com.function.luo.ui.ActivationCodeBox
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/activationCode"
+        android:layout_below="@+id/fpc_1"
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_20"/>
+    <Button
+        android:id="@+id/btn_cancel"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/button_selector"
+        android:minHeight="0dp"
+        android:text="返回上一页"
+        android:textColor="@drawable/text_color_selector"
+        android:textSize="18sp" />
+
+
+</LinearLayout>
