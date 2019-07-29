@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--这是两层布局嵌套，可以随意定义任何一边-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 主布局 -->
+    <item>
+        <shape>
+            <!-- 实心 -->
+            <solid android:color="@color/white" />
+        </shape>
+    </item>
+    <!-- 第二层布局 -->
+    <!-- 相对于主布局距离头部 10dp -->
+    <!-- 相对于主布局距离底部 10dp -->
+    <item
+        android:bottom="@dimen/dp_8"
+        android:top="@dimen/dp_8">
+        <shape>
+            <!-- 实心 -->
+            <solid android:color="@color/color_ffe04f5d" />
+        </shape>
+    </item>
+</layer-list>

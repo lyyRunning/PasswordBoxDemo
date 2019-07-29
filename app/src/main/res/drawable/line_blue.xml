@@ -9,7 +9,7 @@
     </shape>
 </item>
 <!-- 第二层布局，相对于主布局提升 5dp -->
-<item android:bottom="@dimen/dp_2">
+<item android:bottom="@dimen/dp_1">
     <shape>
         <solid android:color="@color/white" />
     </shape>

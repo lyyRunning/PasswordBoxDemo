@@ -6,20 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.blankj.utilcode.util.KeyboardUtils;
 import com.blankj.utilcode.util.ToastUtils;
-import com.function.luo.ui.ActivationCode;
 import com.function.luo.ui.ActivationCodeBox;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-
 
 
 /**
@@ -34,6 +29,7 @@ public class TwoActivity extends Activity {
     Button btnCancel;
     @BindView(R.id.container)
     LinearLayout container;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,18 +47,17 @@ public class TwoActivity extends Activity {
             public void verificationCode(String code) {
                 KeyboardUtils.hideSoftInput(TwoActivity.this);
                 //回调进入 Activity
-                if (code.equals("1234")){
+                if (code.equals("1234")) {
                     //激活成功
                     ToastUtils.showShort("激活成功");
-                    activationCode.showTip(false,"");
-                }else{
+                    activationCode.showTip(false, "");
+                } else {
                     //激活失败
                     ToastUtils.showShort("激活失败");
-                    activationCode.showTip(true,"激活失败");
+                    activationCode.showTip(true, "激活失败");
                 }
             }
         });
-
 
 
         //返回上一页
@@ -73,24 +68,19 @@ public class TwoActivity extends Activity {
             }
         });
 
+
     }
 
 
     /**
      * 页面跳转
+     *
      * @param mContext
      */
     public static void launch(Context mContext) {
 
         Intent intent = new Intent(mContext, TwoActivity.class);
-
         mContext.startActivity(intent);
     }
 
-
-
-    public interface ActivationCodeListenter{
-        void onListener(String code);
-        void finishActivity();
-    }
 }

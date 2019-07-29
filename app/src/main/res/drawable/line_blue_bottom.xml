@@ -5,12 +5,15 @@
 <!-- 主布局 -->
 <item>
     <shape>
-        <solid android:color="@color/color_ffe93a3a" />
+        <!-- 实心 -->
+        <solid android:color="@color/btn_press_bg_color" />
     </shape>
 </item>
-<!-- 第二层布局，相对于主布局提升 2dp -->
+<!-- 第二层布局，相对于主布局提升 1dp -->
+<!-- 相对于主布局，距离底部 1dp 的距离 -->
 <item android:bottom="@dimen/dp_1">
     <shape>
+        <!-- 实心 -->
         <solid android:color="@color/white" />
     </shape>
 </item>

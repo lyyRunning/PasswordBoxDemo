@@ -5,11 +5,11 @@
 <!-- 主布局 -->
 <item>
     <shape>
-        <solid android:color="@color/color_ffe93a3a" />
+        <solid android:color="@color/btn_press_bg_color" />
     </shape>
 </item>
-<!-- 第二层布局，相对于主布局提升 2dp -->
-<item android:bottom="@dimen/dp_1">
+<!-- 第二层布局，相对于主布局提升 5dp -->
+<item android:right="@dimen/dp_1">
     <shape>
         <solid android:color="@color/white" />
     </shape>

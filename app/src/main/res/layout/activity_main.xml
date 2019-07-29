@@ -22,13 +22,21 @@
         android:id="@+id/btn1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="显示密码框"
+        android:text="显示密码弹窗"
         />
     <Button
         android:id="@+id/btn2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="下一页密码框"
+        android:text="自定义密码框"
+        />
+
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自定义 TextView"
         />
 
 </LinearLayout>
