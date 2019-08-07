@@ -42,10 +42,11 @@ public class TwoActivity extends Activity {
     private void initData() {
 
         //激活码输入完成
-        activationCode.setOnActivationCodeListener(new ActivationCodeBox.OnActivationCodeListener() {
+        activationCode.setInputCompleteListener(new ActivationCodeBox.InputCompleteListener() {
             @Override
-            public void verificationCode(String code) {
+            public void inputComplete(String code) {
                 KeyboardUtils.hideSoftInput(TwoActivity.this);
+
                 //回调进入 Activity
                 if (code.equals("1234")) {
                     //激活成功
@@ -56,9 +57,9 @@ public class TwoActivity extends Activity {
                     ToastUtils.showShort("激活失败");
                     activationCode.showTip(true, "激活失败");
                 }
+
             }
         });
-
 
         //返回上一页
         btnCancel.setOnClickListener(new View.OnClickListener() {

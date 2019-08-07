@@ -65,15 +65,16 @@ public class WindowDialog {
 
         });
         //激活码输入完成
-        activationCode.setOnActivationCodeListener(new ActivationCode.OnActivationCodeListener() {
+        activationCode.setInputCompleteListener(new ActivationCode.InputCompleteListener() {
             @Override
-            public void verificationCode(String code) {
+            public void inputComplete(String code) {
                 KeyboardUtils.hideSoftInput(activity);
                 //回调进入 Activity
                 if(activationCodeListenter!=null){
                     activationCodeListenter.onListener(code);
                 }
             }
+
         });
 
     }

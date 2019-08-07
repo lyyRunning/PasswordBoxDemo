@@ -29,11 +29,10 @@ import java.util.List;
 
 public class ActivationCodeBox extends RelativeLayout {
     private Context context;
-    private TextView tvCode1;
-    private TextView tvCode2;
-    private TextView tvCode3;
-    private TextView tvCode4;
+    private TextView[] textViews;
+    private static int MAXlength = 4;
     private TextView tvTip;
+    private String inputContent;
 
     private EditText etCode;
     private List<String> codes = new ArrayList<>();
@@ -72,10 +71,11 @@ public class ActivationCodeBox extends RelativeLayout {
         initEvent();
     }
     private void initView(View view){
-        tvCode1 = (TextView) view.findViewById(R.id.tv_code1);
-        tvCode2 = (TextView) view.findViewById(R.id.tv_code2);
-        tvCode3 = (TextView) view.findViewById(R.id.tv_code3);
-        tvCode4 = (TextView) view.findViewById(R.id.tv_code4);
+        textViews = new TextView[MAXlength];
+        textViews[0] = (TextView) view.findViewById(R.id.tv_code1);
+        textViews[1] = (TextView) view.findViewById(R.id.tv_code2);
+        textViews[2] = (TextView) view.findViewById(R.id.tv_code3);
+        textViews[3] = (TextView) view.findViewById(R.id.tv_code4);
         etCode = (EditText) view.findViewById(R.id.et_code);
         tvTip = (TextView) view.findViewById(R.id.tv_tip);
 
@@ -91,86 +91,42 @@ public class ActivationCodeBox extends RelativeLayout {
             }
             @Override
             public void afterTextChanged(Editable editable) {
-                if(editable != null && editable.length()>0) {
-//                    etCode.setText("");
-                    String content = editable.toString();
-                    if(content.length()>1) {
-                        content = content.substring(content.length() - 1);
-                    }
-                    if(codes.size() < 4){
-                        codes.add(content);
-                        showCode();
+
+                inputContent = etCode.getText().toString();
+                if (inputCompleteListener != null) {
+                    if (inputContent.length() >= MAXlength) {
+                        inputCompleteListener.inputComplete(inputContent);
                     }
                 }
-            }
-        });
-        // 监听验证码删除按键
-        etCode.setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
-                if (keyCode == KeyEvent.KEYCODE_DEL && keyEvent.getAction() == KeyEvent.ACTION_DOWN && codes.size()>0) {
-                    if(codes.size()==0) {
-                        etCode.setText("");
+                for (int i = 0; i < MAXlength; i++) {
+                    if (i < inputContent.length()) {
+                        textViews[i].setText(String.valueOf(inputContent.charAt(i)));
+                    } else {
+                        textViews[i].setText("");
                     }
-                    if(codes.size()>0) {
-                        codes.remove(codes.size() - 1);
-                    }
-                    showCode();
-                    return true;
                 }
-                return false;
+
+
             }
         });
+
     }
-    /**
-     * 显示输入的验证码
-     */
-    private void showCode(){
-        String code1 = "";
-        String code2 = "";
-        String code3 = "";
-        String code4 = "";
-        if(codes.size()>=1){
-            code1 = codes.get(0);
-        }
-        if(codes.size()>=2){
-            code2 = codes.get(1);
-        }
-        if(codes.size()>=3){
-            code3 = codes.get(2);
-        }
-        if(codes.size()>=4){
-            code4 = codes.get(3);
-        }
-        tvCode1.setText(code1);
-        tvCode2.setText(code2);
-        tvCode3.setText(code3);
-        tvCode4.setText(code4);
-        if(codes.size()>=4&&OnActivationCodeListener!=null){
-            OnActivationCodeListener.verificationCode(getPhoneCode());
-        }
-    }
+
     /**
      * 设置高亮颜色
      */
     private void setColor(boolean isShow, int color){
-        tvCode1.setTextColor(color);
-        tvCode2.setTextColor(color);
-        tvCode3.setTextColor(color);
-        tvCode4.setTextColor(color);
-        if (isShow){
-            //设置图片背景
-            tvCode1.setBackground(context.getDrawable(R.drawable.box_red));
-            tvCode2.setBackground(context.getDrawable(R.drawable.box_red));
-            tvCode3.setBackground(context.getDrawable(R.drawable.box_red));
-            tvCode4.setBackground(context.getDrawable(R.drawable.box_red));
 
+        for (int i = 0; i <MAXlength ; i++) {
+            textViews[i].setTextColor(color);
+            if(isShow){
+                textViews[i].setBackground(context.getResources().getDrawable(R.drawable.box_red));
+                //抖动
+                textViews[i].startAnimation(shake);
+            }else {
+                textViews[i].setBackground(context.getResources().getDrawable(R.drawable.box_blue));
 
-        }else {
-            tvCode1.setBackground(context.getDrawable(R.drawable.box_blue));
-            tvCode2.setBackground(context.getDrawable(R.drawable.box_blue));
-            tvCode3.setBackground(context.getDrawable(R.drawable.box_blue));
-            tvCode4.setBackground(context.getDrawable(R.drawable.box_blue));
+            }
         }
 
     }
@@ -196,29 +152,20 @@ public class ActivationCodeBox extends RelativeLayout {
         tvTip.setText(content);
         if(isShow){
             setColor(isShow,context.getColor(R.color.color_ffe93a3a));
-            //抖动
-            tvCode1.startAnimation(shake);
-            tvCode2.startAnimation(shake);
-            tvCode3.startAnimation(shake);
-            tvCode4.startAnimation(shake);
 
         }else{
-            setColor(isShow,context.getResources().getColor(R.color.btn_press_bg_color));
+            setColor(isShow,context.getColor(R.color.btn_press_bg_color));
+            etCode.setText("");
             codes.clear();
-            showCode();
+
         }
     }
 
-    public OnActivationCodeListener OnActivationCodeListener;
-    public interface OnActivationCodeListener{
-        void verificationCode(String code);
+    private InputCompleteListener inputCompleteListener;
+    public void setInputCompleteListener(InputCompleteListener inputCompleteListener) {
+        this.inputCompleteListener = inputCompleteListener;
     }
-
-    public OnActivationCodeListener getOnActivationCodeListener() {
-        return OnActivationCodeListener;
-    }
-
-    public void setOnActivationCodeListener(OnActivationCodeListener OnActivationCodeListener) {
-        this.OnActivationCodeListener = OnActivationCodeListener;
+    public interface InputCompleteListener {
+        void inputComplete(String code);
     }
 }
